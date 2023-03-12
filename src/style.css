@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/src/assets/fonts/Ubuntu-Regular.ttf) format('ttf),
+    url('/src/assets/fonts/Ubuntu-Medium.ttf) format('ttf),
+    url('/src/assets/fonts/Ubuntu-Bold.ttf) format('ttf);
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  line-height: 1;
+  font-weight: 400;
+  font-family: 'Ubuntu';
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --primary-100: hsl(213, 96%, 18%);
+  --primary-200: hsl(243, 100%, 62%);
+  --primary-300: hsl(228, 100%, 84%);
+  --primary-400: hsl(206, 94%, 87%);
+  --primary-500: hsl(354, 84%, 57%);
+
+  --neutral-100: hsl(231, 11%, 63%);
+  --neutral-200: hsl(229, 24%, 87%);
+  --neutral-300: hsl(217, 100%, 97%);
+  --neutral-400: hsl(231, 100%, 99%);
+  --neutral-500: hsl(0, 0%, 100%);
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+
+  --fs-md: 1rem;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+#app {
+  padding-inline: 2rem;
+}
+
+.container {
+  max-width: calc(1440px + 4rem);
+  margin: 0 auto;
+}
+
+.attribution {
+  font-size: 0.75rem;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
