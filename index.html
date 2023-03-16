@@ -6,17 +6,211 @@
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="./assets/images/favicon-32x32.png"
+      href="./src/assets/images/favicon-32x32.png"
     />
 
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Vite + TS</title>
+    <title>Frontend Mentor | Multi-step form</title>
   </head>
   <body>
     <div id="app">
+      <div class="container center-element">
+        <div class="form-card">
+          <header>
+            <picture class="bg-image">
+              <source
+                srcset="/src/assets/images/bg-sidebar-mobile.svg"
+                media="(max-width:375px)"
+              />
+              <img
+                src="/src/assets/images/bg-sidebar-desktop.svg"
+                alt=""
+              />
+            </picture>
+            <nav class="steps-nav">
+              <ul class="steps-nav__list">
+                <li
+                  class="steps-nav__item center-element"
+                  data-step-id="1"
+                >
+                  <span class="step-icon active">1</span>
+                  <p class="steps-nav__text">
+                    <span class="step-id">Step 1</span> Your info
+                  </p>
+                </li>
+                <li
+                  class="steps-nav__item center-element"
+                  data-step-id="2"
+                >
+                  <span class="step-icon">2</span>
+                  <p class="steps-nav__text">
+                    <span class="step-id">Step 2</span> Select plan
+                  </p>
+                </li>
+                <li
+                  class="steps-nav__item center-element"
+                  data-step-id="3"
+                >
+                  <span class="step-icon">3</span>
+                  <p class="steps-nav__text">
+                    <span class="step-id">Step 3</span> Add-ons
+                  </p>
+                </li>
+                <li
+                  class="steps-nav__item center-element"
+                  data-step-id="4"
+                >
+                  <span class="step-icon">4</span>
+                  <p class="steps-nav__text">
+                    <span class="step-id">Step 4</span> Summary
+                  </p>
+                </li>
+              </ul>
+            </nav>
+          </header>
+          <main>
+            <form class="form">
+              <fieldset
+                class="form-field"
+                style="display: none"
+              >
+                <legend class="form__heading">Personal info</legend>
+                <p class="form__text">
+                  Please provide your name, email address, and phone number.
+                </p>
+                <div class="input-group">
+                  <label
+                    class="label"
+                    for="fullName"
+                    >Name</label
+                  >
+                  <input
+                    name="fullName"
+                    id="fullName"
+                    class="input"
+                    type="text"
+                    placeholder="e.g. Stephen King"
+                    required
+                  />
+                  <p
+                    class="error"
+                    data-error="fullName"
+                  >
+                    This field is required
+                  </p>
+                </div>
+                <div class="input-group">
+                  <label
+                    class="label"
+                    for="email"
+                    >Email Address</label
+                  >
+                  <input
+                    name="email"
+                    id="email"
+                    class="input"
+                    type="email"
+                    placeholder="e.g. stephenking@lorem.com"
+                    required
+                  />
+                  <p
+                    class="error"
+                    data-error="email"
+                  >
+                    This field is required
+                  </p>
+                </div>
+                <div class="input-group">
+                  <label
+                    class="label"
+                    for="phone"
+                    >Phone Number</label
+                  >
+                  <input
+                    name="phone"
+                    id="phone"
+                    class="input"
+                    type="phone"
+                    placeholder="e.g. +1 234 567 890"
+                    required
+                  />
+                  <p
+                    class="error"
+                    data-error="phone"
+                  >
+                    This field is required
+                  </p>
+                </div>
+              </fieldset>
+              <fieldset
+                class="form-field"
+                style=""
+              >
+                <legend class="form__heading">Select your plan</legend>
+                <p class="form__text">
+                  You have the option of monthly or yearly billing.
+                </p>
+                <div class="billing__plan">
+                  <div class="billing__card">
+                    <img
+                      src="./src/assets/images/icon-arcade.svg"
+                      alt="joystick"
+                      class="billing__icon"
+                    />
+                    <div class="billing__card--details">
+                      <h2 class="billing__card--title">Arcade</h2>
+                      <p class="billing__card--price">$9/mo</p>
+                      <p class="free-months">2 months free</p>
+                    </div>
+                  </div>
+                  <div class="billing__card">
+                    <img
+                      src="./src/assets/images/icon-advanced.svg"
+                      alt="pad"
+                      class="billing__icon"
+                    />
+                    <div class="billing__card--details">
+                      <h2 class="billing__card--title">Advanced</h2>
+                      <p class="billing__card--price">$12/mo</p>
+                      <p class="free-months">2 months free</p>
+                    </div>
+                  </div>
+                  <div class="billing__card">
+                    <img
+                      src="./src/assets/images/icon-pro.svg"
+                      alt="joystick"
+                      class="billing__icon"
+                    />
+                    <div class="billing__card--details">
+                      <h2 class="billing__card--title">Pro</h2>
+                      <p class="billing__card--price">$15/mo</p>
+                      <p class="free-months">2 months free</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="billing__time">
+                  <p class="billing__period month">Monthly</p>
+                  <label class="switch">
+                    <input
+                      type="checkbox"
+                      class="time"
+                    />
+                    <span class="slider"></span>
+                  </label>
+                  <p class="billing__period year">Yearly</p>
+                </div>
+              </fieldset>
+              <div class="buttons">
+                <button class="btn btn--back">Go Back</button>
+                <button class="btn btn--next">Next Step</button>
+              </div>
+            </form>
+          </main>
+        </div>
+      </div>
       <footer class="attribution">
         Challenge by
         <a
