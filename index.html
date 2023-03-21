@@ -147,7 +147,7 @@
               </fieldset>
               <fieldset
                 class="form-field"
-                style=""
+                style="display: none"
               >
                 <legend class="form__heading">Select your plan</legend>
                 <p class="form__text">
@@ -161,8 +161,8 @@
                       class="billing__icon"
                     />
                     <div class="billing__card--details">
-                      <h2 class="billing__card--title">Arcade</h2>
-                      <p class="billing__card--price">$9/mo</p>
+                      <h2 class="title">Arcade</h2>
+                      <p class="price">$9/mo</p>
                       <p class="free-months">2 months free</p>
                     </div>
                   </div>
@@ -173,8 +173,8 @@
                       class="billing__icon"
                     />
                     <div class="billing__card--details">
-                      <h2 class="billing__card--title">Advanced</h2>
-                      <p class="billing__card--price">$12/mo</p>
+                      <h2 class="title">Advanced</h2>
+                      <p class="price">$12/mo</p>
                       <p class="free-months">2 months free</p>
                     </div>
                   </div>
@@ -185,8 +185,8 @@
                       class="billing__icon"
                     />
                     <div class="billing__card--details">
-                      <h2 class="billing__card--title">Pro</h2>
-                      <p class="billing__card--price">$15/mo</p>
+                      <h2 class="title">Pro</h2>
+                      <p class="price">$15/mo</p>
                       <p class="free-months">2 months free</p>
                     </div>
                   </div>
@@ -202,6 +202,45 @@
                   </label>
                   <p class="billing__period year">Yearly</p>
                 </div>
+              </fieldset>
+              <fieldset
+                class="form-field"
+                style="display: none"
+              >
+                <legend class="form__heading">Pick add-ons</legend>
+                <p class="form__text">
+                  Add-ons help enhance your gaming experience.
+                </p>
+                <div class="add-ons">
+                  <div class="row add-on">
+                    <input type="checkbox" />
+                    <div class="add-ons__text">
+                      <h2 class="title">Online service</h2>
+                      <p class="description">Access to multiplayer games</p>
+                    </div>
+                    <p class="price price--accent">+$1/mo</p>
+                  </div>
+                  <div class="row add-on">
+                    <input type="checkbox" />
+                    <div class="add-ons__text">
+                      <h2 class="title">Larger storage</h2>
+                      <p class="description">Extra 1TB of cloud save</p>
+                    </div>
+                    <p class="price price--accent">+$2/mo</p>
+                  </div>
+                  <div class="row add-on">
+                    <input type="checkbox" />
+                    <div class="add-ons__text">
+                      <h2 class="title">Customizable profile</h2>
+                      <p class="description">Custom theme on your profile</p>
+                    </div>
+                    <p class="price price--accent">+$2/mo</p>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="form-field">
+                <legend form="form__heading"></legend>
+                <p class="form__text"></p>
               </fieldset>
               <div class="buttons">
                 <button class="btn btn--back">Go Back</button>
