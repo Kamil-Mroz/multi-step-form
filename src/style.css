@@ -81,6 +81,9 @@ button {
   background-color: transparent;
   color: inherit;
 }
+p {
+  color: var(--neutral-100);
+}
 
 .center-element {
   display: flex;
@@ -88,6 +91,7 @@ button {
 }
 .row {
   display: flex;
+  justify-content: space-between;
 }
 
 #app {
@@ -160,6 +164,7 @@ header {
   display: flex;
   flex-direction: column;
   letter-spacing: 1px;
+  color: var(--neutral-500);
 }
 
 .step-id {
@@ -266,6 +271,15 @@ input::placeholder {
 .btn--next:focus-visible {
   background-color: var(--primary-200);
 }
+.btn--confirm {
+  background-color: var(--primary-200);
+  color: var(--neutral-500);
+  margin-left: auto;
+}
+.btn--confirm:hover,
+.btn--confirm:focus-visible {
+  background-color: var(--primary-300);
+}
 
 .billing__plan {
   display: grid;
@@ -296,6 +310,13 @@ input::placeholder {
 }
 .price {
   color: var(--neutral-100);
+}
+.price--sm {
+  fonts-size: 0.875rem;
+}
+.price--xl {
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
 }
 
 .price--accent {
@@ -462,4 +483,28 @@ input::placeholder {
 
 input[type='checkbox'] {
   accent-color: hsl(var(--color));
+}
+
+.summary {
+  background-color: var(--primary-300);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.total {
+  padding: 1.5rem 1rem;
+}
+.btn-change {
+  display: block;
+  color: var(--neutral-100);
+  border-bottom: 1px solid var(--neutral-100);
+}
+.btn-change:hover {
+  color: var(--primary-200);
+  border-color: var(--primary-200);
+}
+.plan {
+  margin-bottom: 1rem;
 }
