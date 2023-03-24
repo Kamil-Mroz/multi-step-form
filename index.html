@@ -75,10 +75,7 @@
             </nav>
           </header>
           <main class="flex-col">
-            <form
-              class="form flex-col"
-              style="display: none"
-            >
+            <form class="form flex-col">
               <fieldset
                 class="form-field flex-col"
                 style="display: none"
@@ -99,7 +96,6 @@
                     class="input"
                     type="text"
                     placeholder="e.g. Stephen King"
-                    required
                   />
                   <p
                     class="error"
@@ -120,7 +116,6 @@
                     class="input"
                     type="email"
                     placeholder="e.g. stephenking@lorem.com"
-                    required
                   />
                   <p
                     class="error"
@@ -141,7 +136,6 @@
                     class="input"
                     type="phone"
                     placeholder="e.g. +1 234 567 890"
-                    required
                   />
                   <p
                     class="error"
@@ -244,7 +238,10 @@
                   </div>
                 </div>
               </fieldset>
-              <fieldset class="form-field flex-col">
+              <fieldset
+                class="form-field flex-col"
+                style="display: none"
+              >
                 <legend class="heading">Finishing up</legend>
                 <p class="form__text">
                   Double-check everything looks OK before confirming
@@ -278,8 +275,18 @@
                 </div>
               </fieldset>
               <div class="buttons">
-                <button class="btn btn--back">Go Back</button>
-                <button class="btn btn--next">Next Step</button>
+                <button
+                  class="btn btn--back"
+                  type="button"
+                >
+                  Go Back
+                </button>
+                <button
+                  class="btn btn--next"
+                  type="button"
+                >
+                  Next Step
+                </button>
                 <button
                   class="btn btn--confirm"
                   style="display: none"
@@ -288,7 +295,10 @@
                 </button>
               </div>
             </form>
-            <section class="thank-you flex-col">
+            <section
+              class="thank-you flex-col"
+              style="display: none"
+            >
               <img
                 src="./src/assets/images/icon-thank-you.svg"
                 alt=""
