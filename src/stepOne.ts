@@ -6,7 +6,6 @@ type InputType = {
   type: string
   placeholder: string
   label: string
-  pattern: string
 }
 type StepOneType = {
   heading: string
@@ -27,7 +26,6 @@ class StepOne extends Form {
   pattern: PatterType
   constructor({ heading, text, id, inputs }: StepOneType) {
     super(heading, text)
-    console.log('stepOne')
     this.id = id
     this.inputs = inputs
     this.formField = createElement(
@@ -43,6 +41,7 @@ class StepOne extends Form {
       phone: `${/^\+\d{1}\s\d{3}\s\d{3}\s\d{3}$/}`,
     }
 
+    this.setCurrentStep(id)
     this.render()
   }
 

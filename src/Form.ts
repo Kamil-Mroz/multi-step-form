@@ -58,8 +58,7 @@ class Form {
     }
     ;[btnBack, btnNext].forEach((btn) =>
       btn.addEventListener('click', () => {
-        const error = errorHandler()
-        if (error) return
+        if (errorHandler()) return
 
         const value = btn.classList.contains('btn--back') ? -1 : 1
 
@@ -75,6 +74,13 @@ class Form {
     const buttons = createElement('div', '', 'buttons')
     buttons.append(...[btnBack, btnNext, btnConfirm])
     this.parentElement.append(buttons)
+  }
+
+  setCurrentStep(id: number) {
+    document.querySelectorAll('.step-icon').forEach((icon, index) => {
+      if (index === id) icon.classList.add('active')
+      else icon.classList.remove('active')
+    })
   }
 }
 export default Form
