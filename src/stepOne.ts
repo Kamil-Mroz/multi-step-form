@@ -1,61 +1,107 @@
 import Form from './Form'
 import createElement from './createElement'
-
+import { state } from './main'
+type InputType = {
+  name: string
+  type: string
+  placeholder: string
+  label: string
+  pattern: string
+}
 type StepOneType = {
   heading: string
   text: string
+  id: number
+  inputs: InputType[]
+}
+type PatterType = {
   name: string
   email: string
   phone: string
 }
 
 class StepOne extends Form {
-  name: string
-  email: string
-  phone: string
+  id: number
+  inputs: InputType[]
   formField: HTMLFieldSetElement
-  constructor({ heading, text, name, email, phone }: StepOneType) {
+  pattern: PatterType
+  constructor({ heading, text, id, inputs }: StepOneType) {
     super(heading, text)
-    this.name = name
-    this.email = email
-    this.phone = phone
-    this.formField = createElement('fieldset', '', 'form-field', 'flex-col')
+    this.id = id
+    this.inputs = inputs
+    this.formField = createElement(
+      'fieldset',
+      '',
+      'form-field',
+      'flex-col'
+    ) as HTMLFieldSetElement
+
+    this.pattern = {
+      name: `${/^([a-zA-Z]+ )+[A-Z-a-z]+$/}`,
+      email: `${/^\S+@\S+\.\S+$/}`,
+      phone: `${/^\+\d{1}\s\d{3}\s\d{3}\s\d{3}$/}`,
+    }
+
     this.render()
   }
 
   render() {
     this.clear()
     this.renderHeading(this.formField, this.heading, this.text)
-    this.formField.append(
-      ...[
-        this.createInput({ placeholder: 'enter your name', name: 'Name' }),
-        this.createInput({
-          type: 'email',
-          placeholder: 'enter your email',
-          name: 'Email',
-        }),
-        this.createInput({
-          type: 'number',
-          placeholder: 'enter your phone number',
-          name: 'Phone',
-        }),
-      ]
-    )
-    this.renderButtons()
+    this.formField.append()
+    this.renderButtons(this.handleCheckInput)
+    this.renderInputs()
   }
-  createInput({ type = 'text', placeholder = '', name = '' }) {
-    const label = createElement('label', name, 'label') as HTMLLabelElement
-    label.htmlFor = name
 
-    const input = createElement('input', '', 'input') as HTMLInputElement
-    input.type = type
-    input.placeholder = placeholder
-    input.id = name
+  renderInputs() {
+    this.inputs.forEach((input) => {
+      this.formField.append(this.createInput(input))
+    })
+  }
+
+  createInput({ name, type, placeholder, label }: InputType) {
+    const labelEl = createElement('label', label, 'label') as HTMLLabelElement
+    labelEl.htmlFor = name
+
+    const inputEl = createElement('input', '', 'input') as HTMLInputElement
+    inputEl.type = type
+    inputEl.placeholder = placeholder
+    inputEl.pattern = this.pattern[name]
+    inputEl.id = name
+    inputEl.value = state.info[name]
+    inputEl.addEventListener('change', (e) => {
+      state.info[name] = e?.target.value || ''
+    })
+
+    const errorEl = createElement('p', 'This field is required', 'error')
+    errorEl.dataset.error = name
 
     const inputGroup = createElement('div', '', 'input-group')
 
-    inputGroup.append(...[label, input])
+    inputGroup.append(...[labelEl, errorEl, inputEl])
     return inputGroup
+  }
+  handleCheckInput() {
+    let errors = { name: false, email: false, phone: false }
+    for (const [key, value] of Object.entries(state.info)) {
+      if (!value) {
+        errors[key] = true
+        const errorEl = document.querySelector(
+          `[data-error=${key}]`
+        ) as HTMLParagraphElement
+        errorEl?.classList.add('active')
+      }
+    }
+    for (const [key, value] of Object.entries(errors)) {
+      if (!value)
+        document
+          .querySelector(`[data-error=${key}]`)
+          ?.classList.remove('active')
+    }
+    if (Object.values(errors).some((err) => err === true)) return true
+    else {
+      return false
+    }
   }
 }
 

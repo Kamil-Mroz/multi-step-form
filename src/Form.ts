@@ -24,7 +24,7 @@ class Form {
   clear() {
     this.parentElement.innerHTML = ''
   }
-  renderButtons() {
+  renderButtons(errorHandler) {
     const btnNext = createElement(
       'button',
       'Next Step',
@@ -56,6 +56,20 @@ class Form {
     if (state.step < state.maxStep) {
       btnConfirm.style.display = 'none'
     }
+    ;[btnBack, btnNext].forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const error = errorHandler()
+        if (error) return
+
+        const value = btn.classList.contains('btn--back') ? -1 : 1
+
+        if (state.step > -1 && state.step <= state.maxStep) {
+          state.step += value
+          console.log(state.step)
+          buttons.innerHTML = ''
+        }
+      })
+    )
 
     const buttons = createElement('div', '', 'buttons')
     buttons.append(...[btnBack, btnNext, btnConfirm])

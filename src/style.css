@@ -218,7 +218,7 @@ input::placeholder {
   color: var(--neutral-100);
 }
 
-.input-error {
+.error.active + input {
   border-color: var(--error-100);
 }
 
@@ -240,6 +240,9 @@ input::placeholder {
   right: 0;
   color: var(--error-100);
   display: none;
+}
+.error.active {
+  display: block;
 }
 
 .buttons {
