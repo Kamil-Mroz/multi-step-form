@@ -1,6 +1,7 @@
 import './style.css'
 import StepOne from './stepOne'
-import { dataOne } from './data'
+import StepTwo from './stepTwo'
+import { dataFour, dataOne, dataThree, dataTwo } from './data'
 
 type stateType = {
   period: string
@@ -19,7 +20,7 @@ type stateType = {
 
 export const state: stateType = {
   period: 'month',
-  step: 0,
+  step: 1,
   maxStep: 3,
   plan: {},
   addOns: [],
@@ -32,4 +33,24 @@ export const state: stateType = {
   },
 }
 
-const stepOne = new StepOne(dataOne)
+export const changeStep = () => {
+  switch (state.step) {
+    case 0:
+      new StepOne(dataOne)
+      break
+    case 1:
+      new StepTwo(dataTwo)
+      break
+    // case 2:
+    //   new StepThree(dataThree)
+    //   break;
+    // case 3:
+    //   new StepFour(dataFour)
+    //   break;
+  }
+}
+
+const init = () => {
+  changeStep()
+}
+init()

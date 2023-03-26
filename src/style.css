@@ -289,6 +289,7 @@ input::placeholder {
   border: 2px solid var(--neutral-200);
   transition: border, box-shadow, 0.4s ease-out;
   gap: 2rem;
+  outline: none;
 }
 .billing__icon {
   width: 3rem;
@@ -326,7 +327,10 @@ input::placeholder {
   font-weight: var(--fw-medium);
   color: var(--neutral-100);
 }
-.billing__period.active {
+.billing__time:has(.time:checked) .billing__period.year {
+  color: var(--primary-100);
+}
+.billing__time:not(:has(.time:checked)) .billing__period.month {
   color: var(--primary-100);
 }
 
@@ -422,6 +426,7 @@ input::placeholder {
 }
 
 .billing__card:hover,
+.billing__card:focus-visible,
 .billing__card.active {
   border-color: var(--primary-200);
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);

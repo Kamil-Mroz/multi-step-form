@@ -1,5 +1,5 @@
 import createElement from './createElement'
-import { state } from './main'
+import { changeStep, state } from './main'
 
 class Form {
   heading: string
@@ -67,6 +67,7 @@ class Form {
           state.step += value
           console.log(state.step)
           buttons.innerHTML = ''
+          changeStep()
         }
       })
     )

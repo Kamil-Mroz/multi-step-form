@@ -27,6 +27,7 @@ class StepOne extends Form {
   pattern: PatterType
   constructor({ heading, text, id, inputs }: StepOneType) {
     super(heading, text)
+    console.log('stepOne')
     this.id = id
     this.inputs = inputs
     this.formField = createElement(
@@ -49,7 +50,7 @@ class StepOne extends Form {
     this.clear()
     this.renderHeading(this.formField, this.heading, this.text)
     this.formField.append()
-    this.renderButtons(this.handleCheckInput)
+    this.renderButtons(this.handleError)
     this.renderInputs()
   }
 
@@ -81,7 +82,7 @@ class StepOne extends Form {
     inputGroup.append(...[labelEl, errorEl, inputEl])
     return inputGroup
   }
-  handleCheckInput() {
+  handleError() {
     let errors = { name: false, email: false, phone: false }
     for (const [key, value] of Object.entries(state.info)) {
       if (!value) {

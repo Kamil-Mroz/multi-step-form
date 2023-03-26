@@ -26,12 +26,11 @@ export const dataOne = {
 export const dataTwo = {
   id: 1,
   heading: 'Select your plan',
+  text: 'You have the option of monthly or yearly billing.',
   offer: '2 months free',
-  activePlan: null,
   plans: [
     {
       planId: 1,
-      icon: 'icon-arcade.svg',
       title: 'Arcade',
       price: {
         month: 9,
@@ -40,7 +39,6 @@ export const dataTwo = {
     },
     {
       planId: 2,
-      icon: 'icon-advanced.svg',
       title: 'Advanced',
       price: {
         month: 12,
@@ -49,7 +47,6 @@ export const dataTwo = {
     },
     {
       planId: 3,
-      icon: 'icon-pro.svg',
       title: 'Pro',
       price: {
         month: 15,
