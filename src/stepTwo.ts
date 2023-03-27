@@ -52,9 +52,10 @@ class StepTwo extends Form {
   renderPlans() {
     const plansContainer = createElement('div', '', 'billing__plan')
 
-    this.plans.forEach((plan) => {
+    this.plans.forEach((plan, index) => {
       const planEl = this.createPlans(plan)
       planEl.addEventListener('click', () => {
+        state.plan.id = index
         state.plan.price = plan.price[state.period]
         state.plan.title = plan.title
         state.plan.period = state.period

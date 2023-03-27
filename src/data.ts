@@ -69,7 +69,6 @@ export const dataThree = {
         month: 1,
         year: 10,
       },
-      checked: false,
     },
     {
       planId: 2,
@@ -79,7 +78,6 @@ export const dataThree = {
         month: 2,
         year: 20,
       },
-      checked: false,
     },
     {
       planId: 3,
@@ -89,7 +87,6 @@ export const dataThree = {
         month: 2,
         year: 20,
       },
-      checked: false,
     },
   ],
 }

@@ -2,8 +2,10 @@ import './style.css'
 import StepOne from './stepOne'
 import StepTwo from './stepTwo'
 import { dataFour, dataOne, dataThree, dataTwo } from './data'
+import StepThree from './StepThree'
 
 type planType = {
+  id: undefined | number
   title: string
   price: number
   period: string
@@ -13,7 +15,7 @@ type stateType = {
   period: string
   step: number
   plan: planType
-  addOns: []
+  addOns: planType[]
   total: number
   previousStep: number
   maxStep: number
@@ -26,9 +28,10 @@ type stateType = {
 
 export const state: stateType = {
   period: 'month',
-  step: 1,
+  step: 2,
   maxStep: 3,
   plan: {
+    id: undefined,
     title: '',
     period: '',
     price: 0,
@@ -51,9 +54,9 @@ export const changeStep = () => {
     case 1:
       new StepTwo(dataTwo)
       break
-    // case 2:
-    //   new StepThree(dataThree)
-    //   break;
+    case 2:
+      new StepThree(dataThree)
+      break
     // case 3:
     //   new StepFour(dataFour)
     //   break;
