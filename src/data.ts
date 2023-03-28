@@ -18,7 +18,7 @@ export const dataOne = {
     {
       name: 'phone',
       placeholder: 'e.g. +1 234 567 890',
-      type: 'number',
+      type: 'text',
       label: 'Phone number',
     },
   ],

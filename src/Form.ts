@@ -52,10 +52,12 @@ class Form {
     }
     if (state.step >= state.maxStep) {
       btnNext.style.display = 'none'
+      btnConfirm.style.display = 'block'
     }
     if (state.step < state.maxStep) {
       btnConfirm.style.display = 'none'
     }
+
     ;[btnBack, btnNext].forEach((btn) =>
       btn.addEventListener('click', () => {
         if (errorHandler()) return
@@ -64,7 +66,6 @@ class Form {
 
         if (state.step > -1 && state.step <= state.maxStep) {
           state.step += value
-          console.log(state.step)
           buttons.innerHTML = ''
           changeStep()
         }

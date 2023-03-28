@@ -3,6 +3,7 @@ import StepOne from './stepOne'
 import StepTwo from './stepTwo'
 import { dataFour, dataOne, dataThree, dataTwo } from './data'
 import StepThree from './StepThree'
+import StepFour from './StepFour'
 
 type planType = {
   id: undefined | number
@@ -28,7 +29,7 @@ type stateType = {
 
 export const state: stateType = {
   period: 'month',
-  step: 2,
+  step: 3,
   maxStep: 3,
   plan: {
     id: undefined,
@@ -57,9 +58,9 @@ export const changeStep = () => {
     case 2:
       new StepThree(dataThree)
       break
-    // case 3:
-    //   new StepFour(dataFour)
-    //   break;
+    case 3:
+      new StepFour(dataFour)
+      break
   }
 }
 
