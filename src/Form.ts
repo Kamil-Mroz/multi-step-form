@@ -9,6 +9,12 @@ class Form {
     this.heading = heading
     this.text = text
     this.parentElement = document.querySelector('.form') as HTMLFormElement
+    this.parentElement.addEventListener('submit', this.onSubmit)
+  }
+  onSubmit(e) {
+    e.preventDefault()
+    e.target.style.display = 'none'
+    document.querySelector('.thank-you').style.display = 'flex'
   }
   renderHeading(
     formField: HTMLFieldSetElement,
