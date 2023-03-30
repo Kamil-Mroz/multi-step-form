@@ -8,8 +8,7 @@ import StepFour from './StepFour'
 type planType = {
   id: undefined | number
   title: string
-  price: number
-  period: string
+  price: { year: number; month: number }
 }
 
 type stateType = {

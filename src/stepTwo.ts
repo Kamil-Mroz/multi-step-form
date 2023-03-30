@@ -53,9 +53,8 @@ class StepTwo extends Form {
       const planEl = this.createPlans(plan)
       planEl.addEventListener('click', () => {
         state.plan.id = index
-        state.plan.price = plan.price[state.period]
+        state.plan.price = plan.price
         state.plan.title = plan.title
-        state.plan.period = state.period
         document
           .querySelectorAll('.billing__card')
           .forEach((plan) => plan.classList.remove('active'))

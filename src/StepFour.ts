@@ -34,8 +34,8 @@ class StepFour extends Form {
     })
 
     const total =
-      state.plan.price +
-      state.addOns.reduce((acc, curr) => (acc += curr.price), 0)
+      state.plan.price[state.period] +
+      state.addOns.reduce((acc, curr) => (acc += curr.price[state.period]), 0)
 
     const totalPrice = this.createElement({
       element: 'p',
@@ -85,7 +85,7 @@ class StepFour extends Form {
     })
     const price = this.createElement({
       element: 'p',
-      content: `$${state.plan.price}${this.period()}`,
+      content: `$${state.plan.price[state.period]}${this.period()}`,
     })
 
     const planContainer = this.createElement({
@@ -100,7 +100,7 @@ class StepFour extends Form {
 
     const priceEl = this.createElement({
       element: 'p',
-      content: `+$${price}${this.period()}}`,
+      content: `+$${price[state.period]}${this.period()}}`,
       classTag: ['price', 'price--sm'],
     })
 

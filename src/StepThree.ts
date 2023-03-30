@@ -24,7 +24,6 @@ class StepThree extends Form {
     this.plans = plans
     this.formField = this.createElement({
       element: 'fieldset',
-
       classTag: ['form-field', 'flex-col'],
     }) as HTMLFieldSetElement
     this.setCurrentStep(id)
@@ -43,8 +42,7 @@ class StepThree extends Form {
           const addOn = {
             id: index,
             title,
-            price: price[state.period],
-            period: state.period,
+            price: price,
           }
           state.addOns.push(addOn)
         }
