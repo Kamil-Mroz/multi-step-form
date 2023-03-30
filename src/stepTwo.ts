@@ -1,5 +1,4 @@
 import Form from './Form'
-import createElement from './createElement'
 import Arcade from './assets/images/icon-arcade.svg'
 import Pro from './assets/images/icon-pro.svg'
 import Advanced from './assets/images/icon-advanced.svg'
@@ -32,12 +31,10 @@ class StepTwo extends Form {
     this.plans = plans
     this.id = id
     this.icons = { Arcade, Pro, Advanced }
-    this.formField = createElement(
-      'fieldset',
-      '',
-      'form-field',
-      'flex-col'
-    ) as HTMLFieldSetElement
+    this.formField = this.createElement({
+      element: 'fieldset',
+      classTag: ['form-field', 'flex-col'],
+    }) as HTMLFieldSetElement
     this.setCurrentStep(id)
     this.render()
   }
@@ -50,7 +47,7 @@ class StepTwo extends Form {
   }
 
   renderPlans() {
-    const plansContainer = createElement('div', '', 'billing__plan')
+    const plansContainer = this.createElement({ classTag: 'billing__plan' })
 
     this.plans.forEach((plan, index) => {
       const planEl = this.createPlans(plan)
@@ -71,32 +68,42 @@ class StepTwo extends Form {
   }
 
   createPlans({ title, price }: PlansType) {
-    const plan = createElement('div', '', 'flex-col', 'billing__card')
-    if (state.plan.title === title) plan.classList.add('active')
-    plan.tabIndex = 0
-    const icon = createElement('img', '', 'billing__icon') as HTMLImageElement
+    const icon = this.createElement({
+      element: 'img',
+      classTag: 'billing__icon',
+    }) as HTMLImageElement
 
     icon.src = this.icons[title]
     icon.alt = title
 
-    const planDetails = createElement(
-      'div',
-      '',
-      'flex-col',
-      'billing__card-details'
-    )
-
-    const titleEl = createElement('h2', title, 'title')
-    const priceEl = createElement(
-      'p',
-      `$${state.period === 'month' ? price.month + '/mo' : price.year + '/yr'}`,
-      'price'
-    )
-    const offerEl = createElement('p', this.offer, 'offer')
+    const titleEl = this.createElement({
+      element: 'h2',
+      content: title,
+      classTag: 'title',
+    })
+    const priceEl = this.createElement({
+      element: 'p',
+      content: `$${price[state.period]}${this.period()}`,
+      classTag: 'price',
+    })
+    const offerEl = this.createElement({
+      element: 'p',
+      content: this.offer,
+      classTag: 'offer',
+    })
     offerEl.style.display = state.period === 'year' ? 'block' : 'none'
 
-    planDetails.append(...[titleEl, priceEl, offerEl])
-    plan.append(...[icon, planDetails])
+    const planDetails = this.createElement({
+      classTag: ['flex-col', 'billing__card-details'],
+      children: [titleEl, priceEl, offerEl],
+    })
+
+    const plan = this.createElement({
+      classTag: ['flex-col', 'billing__card'],
+      children: [icon, planDetails],
+    })
+    if (state.plan.title === title) plan.classList.add('active')
+    plan.tabIndex = 0
 
     return plan
   }
@@ -113,30 +120,36 @@ class StepTwo extends Form {
   }
 
   createSwitch() {
-    const billingTimeEl = createElement('div', '', 'billing__time')
-    const billingMonthEl = createElement(
-      'p',
-      'Monthly',
-      'billing__period',
-      'month'
-    )
-    const billingYearEl = createElement(
-      'p',
-      'Yearly',
-      'billing__period',
-      'year'
-    )
-    const switchEl = createElement('label', '', 'switch')
+    const billingMonthEl = this.createElement({
+      element: 'p',
+      content: 'Monthly',
+      classTag: ['billing__period', 'month'],
+    })
+    const billingYearEl = this.createElement({
+      element: 'p',
+      content: 'Yearly',
+      classTag: ['billing__period', 'year'],
+    })
 
-    const checkboxEl = createElement('input', '', 'time') as HTMLInputElement
-    checkboxEl.type = 'checkbox'
+    const checkboxEl = this.createElement({
+      element: 'input',
+      classTag: 'time',
+      type: 'checkbox',
+    }) as HTMLInputElement
     checkboxEl.checked = state.period === 'year'
 
-    const sliderEl = createElement('span', '', 'slider')
+    const sliderEl = this.createElement({ element: 'span', classTag: 'slider' })
 
-    switchEl.append(...[checkboxEl, sliderEl])
+    const switchEl = this.createElement({
+      element: 'label',
+      classTag: 'switch',
+      children: [checkboxEl, sliderEl],
+    })
 
-    billingTimeEl.append(...[billingMonthEl, switchEl, billingYearEl])
+    const billingTimeEl = this.createElement({
+      classTag: 'billing__time',
+      children: [billingMonthEl, switchEl, billingYearEl],
+    })
     this.formField.append(billingTimeEl)
     return checkboxEl
   }

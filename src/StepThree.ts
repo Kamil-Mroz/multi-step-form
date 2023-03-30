@@ -1,5 +1,5 @@
 import Form from './Form'
-import createElement from './createElement'
+
 import { state } from './main'
 
 type PlansType = {
@@ -22,15 +22,13 @@ class StepThree extends Form {
   constructor({ heading, text, plans, id }: StepThreeType) {
     super(heading, text)
     this.plans = plans
-    this.formField = createElement(
-      'fieldset',
-      '',
-      'form-field',
-      'flex-col'
-    ) as HTMLFieldSetElement
+    this.formField = this.createElement({
+      element: 'fieldset',
+
+      classTag: ['form-field', 'flex-col'],
+    }) as HTMLFieldSetElement
     this.setCurrentStep(id)
     this.render()
-    console.log(state.addOns)
   }
   render() {
     this.clear()
@@ -54,13 +52,12 @@ class StepThree extends Form {
           const newAddons = state.addOns.filter((plan) => plan.id !== index)
           state.addOns = newAddons
         }
-        console.log(state.addOns)
       })
     })
   }
 
   renderAddons() {
-    const container = createElement('div', '', 'flex-col', 'add-ons')
+    const container = this.createElement({ classTag: ['flex-col', 'add-ons'] })
     this.plans.forEach((plan) => {
       container.append(this.createAddon(plan))
     })
@@ -69,26 +66,36 @@ class StepThree extends Form {
   }
 
   createAddon({ title, description, price }: PlansType) {
-    const addOnContainerEl = createElement('div', '', 'row', 'add-on')
-    const inputEl = createElement('input', '', 'ok') as HTMLInputElement
-    inputEl.type = 'checkbox'
+    const inputEl = this.createElement({
+      element: 'input',
+      type: 'checkbox',
+    }) as HTMLInputElement
     inputEl.checked = state.addOns.some((plan) => plan.title === title)
-    const descriptionEl = createElement('div', '', 'add-ons__text')
-    const titleEl = createElement('h2', title, 'title')
-    const textEl = createElement('p', description, 'description')
+    const titleEl = this.createElement({
+      element: 'h2',
+      content: title,
+      classTag: 'title',
+    })
+    const textEl = this.createElement({
+      element: 'p',
+      content: description,
+      classTag: 'description',
+    })
+    const descriptionEl = this.createElement({
+      classTag: 'add-ons__text',
+      children: [titleEl, textEl],
+    })
 
-    descriptionEl.append(...[titleEl, textEl])
+    const priceEl = this.createElement({
+      element: 'p',
+      content: `+$${price[state.period]}${this.period()}`,
+      classTag: ['price', 'price--accent'],
+    })
 
-    const priceEl = createElement(
-      'p',
-      `+$${
-        state.period === 'month' ? price.month + '/mo' : price.year + '/yr'
-      }`,
-      'price',
-      'price--accent'
-    )
-
-    addOnContainerEl.append(...[inputEl, descriptionEl, priceEl])
+    const addOnContainerEl = this.createElement({
+      classTag: ['row', 'add-on'],
+      children: [inputEl, descriptionEl, priceEl],
+    })
 
     return addOnContainerEl
   }

@@ -1,5 +1,12 @@
-import createElement from './createElement'
 import { changeStep, state } from './main'
+
+type CreateElementType = {
+  element?: string
+  children?: Node[] | Node
+  classTag?: string[] | string
+  content?: string
+  type?: string
+}
 
 class Form {
   heading: string
@@ -14,15 +21,24 @@ class Form {
   onSubmit(e) {
     e.preventDefault()
     e.target.style.display = 'none'
-    document.querySelector('.thank-you').style.display = 'flex'
+    const thankYopPage = document.querySelector('.thank-you') as HTMLElement
+    thankYopPage && (thankYopPage.style.display = 'flex')
   }
   renderHeading(
     formField: HTMLFieldSetElement,
     headingT: string,
     textT: string
   ) {
-    const heading = createElement('legend', headingT, 'heading')
-    const text = createElement('p', textT, 'form__text')
+    const heading = this.createElement({
+      element: 'legend',
+      content: headingT,
+      classTag: 'heading',
+    })
+    const text = this.createElement({
+      element: 'p',
+      content: textT,
+      classTag: 'form__text',
+    })
 
     formField.prepend(...[heading, text])
     this.parentElement.prepend(formField)
@@ -31,27 +47,24 @@ class Form {
     this.parentElement.innerHTML = ''
   }
   renderButtons(errorHandler) {
-    const btnNext = createElement(
-      'button',
-      'Next Step',
-      'btn',
-      'btn--next'
-    ) as HTMLButtonElement
-    btnNext.type = 'button'
-    const btnBack = createElement(
-      'button',
-      'Go back',
-      'btn',
-      'btn--back'
-    ) as HTMLButtonElement
+    const btnNext = this.createElement({
+      element: 'button',
+      content: 'Next Step',
+      classTag: ['btn', 'btn--next'],
+      type: 'button',
+    }) as HTMLButtonElement
+    const btnBack = this.createElement({
+      element: 'button',
+      content: 'Go back',
+      classTag: ['btn', 'btn--back'],
+      type: 'button',
+    }) as HTMLButtonElement
 
-    btnBack.type = 'button'
-    const btnConfirm = createElement(
-      'button',
-      'Confirm',
-      'btn',
-      'btn--confirm'
-    ) as HTMLButtonElement
+    const btnConfirm = this.createElement({
+      element: 'button',
+      content: 'Confirm',
+      classTag: ['btn', 'btn--confirm'],
+    }) as HTMLButtonElement
 
     if (state.step === 0) {
       btnBack.style.display = 'none'
@@ -78,8 +91,10 @@ class Form {
       })
     )
 
-    const buttons = createElement('div', '', 'buttons')
-    buttons.append(...[btnBack, btnNext, btnConfirm])
+    const buttons = this.createElement({
+      classTag: 'buttons',
+      children: [btnBack, btnNext, btnConfirm],
+    })
     this.parentElement.append(buttons)
   }
 
@@ -88,6 +103,31 @@ class Form {
       if (index === id) icon.classList.add('active')
       else icon.classList.remove('active')
     })
+  }
+  createElement({
+    element = 'div',
+    children,
+    content,
+    classTag,
+    type,
+  }: CreateElementType) {
+    const createdElement = document.createElement(element) as any
+    if (content) createdElement.textContent = content
+    if (children) {
+      if (Array.isArray(children) && children.length > 0)
+        createdElement.append(...children)
+      else createdElement.append(children)
+    }
+    if (classTag) {
+      if (classTag.length > 0 && Array.isArray(classTag))
+        createdElement.classList.add(...classTag)
+      else createdElement.classList.add(classTag)
+    }
+    if (type) createdElement.type = type
+    return createdElement
+  }
+  period() {
+    return state.period === 'month' ? '/mo' : '/yr'
   }
 }
 export default Form

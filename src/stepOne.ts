@@ -1,5 +1,4 @@
 import Form from './Form'
-import createElement from './createElement'
 import { state } from './main'
 type InputType = {
   name: string
@@ -28,12 +27,10 @@ class StepOne extends Form {
     super(heading, text)
     this.id = id
     this.inputs = inputs
-    this.formField = createElement(
-      'fieldset',
-      '',
-      'form-field',
-      'flex-col'
-    ) as HTMLFieldSetElement
+    this.formField = this.createElement({
+      element: 'fieldset',
+      classTag: ['form-field', 'flex-col'],
+    }) as HTMLFieldSetElement
 
     this.pattern = {
       name: `${/^([a-zA-Z]+ )+[A-Z-a-z]+$/}`,
@@ -48,9 +45,9 @@ class StepOne extends Form {
   render() {
     this.clear()
     this.renderHeading(this.formField, this.heading, this.text)
-    this.formField.append()
-    this.renderButtons(this.handleError)
+
     this.renderInputs()
+    this.renderButtons(this.handleError)
   }
 
   renderInputs() {
@@ -60,10 +57,17 @@ class StepOne extends Form {
   }
 
   createInput({ name, type, placeholder, label }: InputType) {
-    const labelEl = createElement('label', label, 'label') as HTMLLabelElement
+    const labelEl = this.createElement({
+      element: 'label',
+      content: label,
+      classTag: 'label',
+    }) as HTMLLabelElement
     labelEl.htmlFor = name
 
-    const inputEl = createElement('input', '', 'input') as HTMLInputElement
+    const inputEl = this.createElement({
+      element: 'input',
+      classTag: 'input',
+    }) as HTMLInputElement
     inputEl.type = type
     inputEl.placeholder = placeholder
     inputEl.pattern = this.pattern[name]
@@ -73,10 +77,14 @@ class StepOne extends Form {
       state.info[name] = e?.target.value || ''
     })
 
-    const errorEl = createElement('p', 'This field is required', 'error')
+    const errorEl = this.createElement({
+      element: 'p',
+      content: 'This field is required',
+      classTag: 'error',
+    })
     errorEl.dataset.error = name
 
-    const inputGroup = createElement('div', '', 'input-group')
+    const inputGroup = this.createElement({ classTag: 'input-group' })
 
     inputGroup.append(...[labelEl, errorEl, inputEl])
     return inputGroup
