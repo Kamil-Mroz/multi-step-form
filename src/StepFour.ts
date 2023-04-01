@@ -1,9 +1,19 @@
 import Form from './Form'
-import { changeStep, state } from './main'
+import { PriceType, changeStep, state } from './main'
 
+type AddonType = {
+  price: PriceType
+  title: string
+}
+
+type StepFourType = {
+  heading: string
+  text: string
+  id: number
+}
 class StepFour extends Form {
   formField: HTMLFieldSetElement
-  constructor({ heading, text, id }) {
+  constructor({ heading, text, id }: StepFourType) {
     super(heading, text)
     this.formField = this.createElement({
       element: 'fieldset',
@@ -95,7 +105,7 @@ class StepFour extends Form {
     return planContainer
   }
 
-  createAddon({ title, price, period }) {
+  createAddon({ title, price }: AddonType) {
     const titleEl = this.createElement({ element: 'p', content: title })
 
     const priceEl = this.createElement({

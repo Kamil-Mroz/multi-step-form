@@ -5,10 +5,16 @@ import { dataFour, dataOne, dataThree, dataTwo } from './data'
 import StepThree from './StepThree'
 import StepFour from './StepFour'
 
+export type PriceType = {
+  year: number
+  month: number
+  [key: string]: any
+}
+
 type planType = {
   id: undefined | number
   title: string
-  price: { year: number; month: number }
+  price: PriceType
 }
 
 type stateType = {
@@ -23,18 +29,18 @@ type stateType = {
     name: string
     email: string
     phone: string
+    [key: string]: any
   }
 }
 
 export const state: stateType = {
   period: 'month',
-  step: 3,
+  step: 0,
   maxStep: 3,
   plan: {
     id: undefined,
     title: '',
-    period: '',
-    price: 0,
+    price: { year: 0, month: 0 },
   },
   addOns: [],
   total: 0,

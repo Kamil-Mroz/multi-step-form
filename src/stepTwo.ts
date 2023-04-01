@@ -2,13 +2,10 @@ import Form from './Form'
 import Arcade from './assets/images/icon-arcade.svg'
 import Pro from './assets/images/icon-pro.svg'
 import Advanced from './assets/images/icon-advanced.svg'
-import { state } from './main'
+import { PriceType, state } from './main'
 type PlansType = {
   title: string
-  price: {
-    year: number
-    month: number
-  }
+  price: PriceType
 }
 
 type StepTwoType = {
@@ -23,7 +20,7 @@ class StepTwo extends Form {
   plans: PlansType[]
   offer: string
   formField: HTMLFieldSetElement
-  icons: {}
+  icons: { [key: string]: any }
   id: number
   constructor({ heading, text, plans, offer, id }: StepTwoType) {
     super(heading, text)
@@ -109,7 +106,8 @@ class StepTwo extends Form {
   renderSwitch() {
     const checkboxEl = this.createSwitch()
     checkboxEl.addEventListener('change', (e) => {
-      state.period = e.target?.checked ? 'year' : 'month'
+      if (e.target instanceof HTMLInputElement)
+        state.period = e.target?.checked ? 'year' : 'month'
       this.clearField()
       this.render()
     })

@@ -1,14 +1,11 @@
 import Form from './Form'
 
-import { state } from './main'
+import { PriceType, state } from './main'
 
 type PlansType = {
   title: string
   description: string
-  price: {
-    month: number
-    year: number
-  }
+  price: PriceType
 }
 type StepThreeType = {
   heading: string
@@ -37,18 +34,20 @@ class StepThree extends Form {
     const inputs = document.querySelectorAll('input[type="checkbox"]')
     inputs.forEach((input, index) => {
       input.addEventListener('change', (e) => {
-        if (e.target.checked) {
-          const { title, price } = this.plans[index]
-          const addOn = {
-            id: index,
-            title,
-            price: price,
+        if (e.target instanceof HTMLInputElement) {
+          if (e.target.checked) {
+            const { title, price } = this.plans[index]
+            const addOn = {
+              id: index,
+              title,
+              price: price,
+            }
+            state.addOns.push(addOn)
           }
-          state.addOns.push(addOn)
-        }
-        if (!e.target.checked) {
-          const newAddons = state.addOns.filter((plan) => plan.id !== index)
-          state.addOns = newAddons
+          if (!e.target.checked) {
+            const newAddons = state.addOns.filter((plan) => plan.id !== index)
+            state.addOns = newAddons
+          }
         }
       })
     })

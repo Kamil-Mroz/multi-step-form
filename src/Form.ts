@@ -18,11 +18,13 @@ class Form {
     this.parentElement = document.querySelector('.form') as HTMLFormElement
     this.parentElement.addEventListener('submit', this.onSubmit)
   }
-  onSubmit(e) {
+  onSubmit(e: SubmitEvent) {
     e.preventDefault()
-    e.target.style.display = 'none'
-    const thankYopPage = document.querySelector('.thank-you') as HTMLElement
-    thankYopPage && (thankYopPage.style.display = 'flex')
+    if (e.target instanceof HTMLFormElement) {
+      e.target.style.display = 'none'
+      const thankYopPage = document.querySelector('.thank-you') as HTMLElement
+      thankYopPage && (thankYopPage.style.display = 'flex')
+    }
   }
   renderHeading(
     formField: HTMLFieldSetElement,
@@ -46,7 +48,7 @@ class Form {
   clear() {
     this.parentElement.innerHTML = ''
   }
-  renderButtons(errorHandler) {
+  renderButtons(errorHandler: () => boolean | void) {
     const btnNext = this.createElement({
       element: 'button',
       content: 'Next Step',

@@ -16,6 +16,7 @@ type PatterType = {
   name: string
   email: string
   phone: string
+  [key: string]: any
 }
 
 class StepOne extends Form {
@@ -74,7 +75,8 @@ class StepOne extends Form {
     inputEl.id = name
     inputEl.value = state.info[name]
     inputEl.addEventListener('change', (e) => {
-      state.info[name] = e?.target.value || ''
+      if (e.target instanceof HTMLInputElement)
+        state.info[name] = e?.target.value || ''
     })
 
     const errorEl = this.createElement({
@@ -90,7 +92,11 @@ class StepOne extends Form {
     return inputGroup
   }
   handleError() {
-    let errors = { name: false, email: false, phone: false }
+    let errors: { [key: string]: any } = {
+      name: false,
+      email: false,
+      phone: false,
+    }
     for (const [key, value] of Object.entries(state.info)) {
       if (!value) {
         errors[key] = true
