@@ -2,22 +2,10 @@ import Form from './Form'
 import Arcade from './assets/images/icon-arcade.svg'
 import Pro from './assets/images/icon-pro.svg'
 import Advanced from './assets/images/icon-advanced.svg'
-import { PriceType, state } from './main'
-type PlansType = {
-  title: string
-  price: PriceType
-}
-
-type StepTwoType = {
-  heading: string
-  text: string
-  plans: PlansType[]
-  offer: string
-  id: number
-}
+import { PlanType, StepTwoType } from './types'
 
 class StepTwo extends Form {
-  plans: PlansType[]
+  plans: PlanType[]
   offer: string
   formField: HTMLFieldSetElement
   icons: { [key: string]: any }
@@ -33,6 +21,7 @@ class StepTwo extends Form {
       classTag: ['form-field', 'flex-col'],
     }) as HTMLFieldSetElement
     this.setCurrentStep(id)
+    this.handleError = this.handleError.bind(this)
     this.render()
   }
   render() {
@@ -46,12 +35,11 @@ class StepTwo extends Form {
   renderPlans() {
     const plansContainer = this.createElement({ classTag: 'billing__plan' })
 
-    this.plans.forEach((plan, index) => {
+    this.plans.forEach((plan) => {
+      console.log(plan)
       const planEl = this.createPlans(plan)
       planEl.addEventListener('click', () => {
-        state.plan.id = index
-        state.plan.price = plan.price
-        state.plan.title = plan.title
+        this.statePlan = plan
         document
           .querySelectorAll('.billing__card')
           .forEach((plan) => plan.classList.remove('active'))
@@ -63,7 +51,7 @@ class StepTwo extends Form {
     this.formField.append(plansContainer)
   }
 
-  createPlans({ title, price }: PlansType) {
+  createPlans({ title, price }: PlanType) {
     const icon = this.createElement({
       element: 'img',
       classTag: 'billing__icon',
@@ -79,7 +67,7 @@ class StepTwo extends Form {
     })
     const priceEl = this.createElement({
       element: 'p',
-      content: `$${price[state.period]}${this.period()}`,
+      content: `$${price[this.statePeriod]}${this.periodString()}`,
       classTag: 'price',
     })
     const offerEl = this.createElement({
@@ -87,7 +75,7 @@ class StepTwo extends Form {
       content: this.offer,
       classTag: 'offer',
     })
-    offerEl.style.display = state.period === 'year' ? 'block' : 'none'
+    offerEl.style.display = this.statePeriod === 'year' ? 'block' : 'none'
 
     const planDetails = this.createElement({
       classTag: ['flex-col', 'billing__card-details'],
@@ -98,7 +86,7 @@ class StepTwo extends Form {
       classTag: ['flex-col', 'billing__card'],
       children: [icon, planDetails],
     })
-    if (state.plan.title === title) plan.classList.add('active')
+    if (this.statePlan.title === title) plan.classList.add('active')
     plan.tabIndex = 0
 
     return plan
@@ -107,7 +95,7 @@ class StepTwo extends Form {
     const checkboxEl = this.createSwitch()
     checkboxEl.addEventListener('change', (e) => {
       if (e.target instanceof HTMLInputElement)
-        state.period = e.target?.checked ? 'year' : 'month'
+        this.statePeriod = e.target?.checked ? 'year' : 'month'
       this.clearField()
       this.render()
     })
@@ -133,7 +121,7 @@ class StepTwo extends Form {
       classTag: 'time',
       type: 'checkbox',
     }) as HTMLInputElement
-    checkboxEl.checked = state.period === 'year'
+    checkboxEl.checked = this.statePeriod === 'year'
 
     const sliderEl = this.createElement({ element: 'span', classTag: 'slider' })
 
@@ -152,7 +140,8 @@ class StepTwo extends Form {
   }
 
   handleError() {
-    if (Object.values(state.plan).some((Element) => Element)) return false
+    console.log(this.statePlan)
+    if (this.statePlan.id) return false
     return true
   }
 }

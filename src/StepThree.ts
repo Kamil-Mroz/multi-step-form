@@ -1,24 +1,14 @@
 import Form from './Form'
+import { AddonType, PlanType, StepThreeType } from './types'
 
-import { PriceType, state } from './main'
-
-type PlansType = {
-  title: string
-  description: string
-  price: PriceType
-}
-type StepThreeType = {
-  heading: string
-  text: string
-  plans: PlansType[]
-  id: number
-}
 class StepThree extends Form {
-  plans: PlansType[]
+  plans: AddonType[]
+  addOns: PlanType[]
   formField: HTMLFieldSetElement
   constructor({ heading, text, plans, id }: StepThreeType) {
     super(heading, text)
     this.plans = plans
+    this.addOns = this.stateAddOns
     this.formField = this.createElement({
       element: 'fieldset',
       classTag: ['form-field', 'flex-col'],
@@ -42,12 +32,12 @@ class StepThree extends Form {
               title,
               price: price,
             }
-            state.addOns.push(addOn)
+            this.addOns.push(addOn)
           }
           if (!e.target.checked) {
-            const newAddons = state.addOns.filter((plan) => plan.id !== index)
-            state.addOns = newAddons
+            this.addOns = this.stateAddOns.filter((plan) => plan.id !== index)
           }
+          this.stateAddOns = this.addOns
         }
       })
     })
@@ -62,12 +52,12 @@ class StepThree extends Form {
     this.formField.append(container)
   }
 
-  createAddon({ title, description, price }: PlansType) {
+  createAddon({ title, description, price }: AddonType) {
     const inputEl = this.createElement({
       element: 'input',
       type: 'checkbox',
     }) as HTMLInputElement
-    inputEl.checked = state.addOns.some((plan) => plan.title === title)
+    inputEl.checked = this.stateAddOns.some((plan) => plan.title === title)
     const titleEl = this.createElement({
       element: 'h2',
       content: title,
@@ -85,7 +75,7 @@ class StepThree extends Form {
 
     const priceEl = this.createElement({
       element: 'p',
-      content: `+$${price[state.period]}${this.period()}`,
+      content: `+$${price[this.statePeriod]}${this.periodString()}`,
       classTag: ['price', 'price--accent'],
     })
 

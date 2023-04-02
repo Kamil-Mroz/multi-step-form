@@ -1,23 +1,5 @@
 import Form from './Form'
-import { state } from './main'
-type InputType = {
-  name: string
-  type: string
-  placeholder: string
-  label: string
-}
-type StepOneType = {
-  heading: string
-  text: string
-  id: number
-  inputs: InputType[]
-}
-type PatterType = {
-  name: string
-  email: string
-  phone: string
-  [key: string]: any
-}
+import { InputType, PatterType, StepOneType } from './types'
 
 class StepOne extends Form {
   id: number
@@ -38,7 +20,7 @@ class StepOne extends Form {
       email: `${/^\S+@\S+\.\S+$/}`,
       phone: `${/^\+\d{1}\s\d{3}\s\d{3}\s\d{3}$/}`,
     }
-
+    this.handleError = this.handleError.bind(this)
     this.setCurrentStep(id)
     this.render()
   }
@@ -68,15 +50,15 @@ class StepOne extends Form {
     const inputEl = this.createElement({
       element: 'input',
       classTag: 'input',
+      type: type,
     }) as HTMLInputElement
-    inputEl.type = type
     inputEl.placeholder = placeholder
     inputEl.pattern = this.pattern[name]
     inputEl.id = name
-    inputEl.value = state.info[name]
+    inputEl.value = this.stateInfo[name]
     inputEl.addEventListener('change', (e) => {
       if (e.target instanceof HTMLInputElement)
-        state.info[name] = e?.target.value || ''
+        this.stateInfo[name] = e?.target.value || ''
     })
 
     const errorEl = this.createElement({
@@ -97,7 +79,7 @@ class StepOne extends Form {
       email: false,
       phone: false,
     }
-    for (const [key, value] of Object.entries(state.info)) {
+    for (const [key, value] of Object.entries(this.stateInfo)) {
       if (!value) {
         errors[key] = true
         const errorEl = document.querySelector(

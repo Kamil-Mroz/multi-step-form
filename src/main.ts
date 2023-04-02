@@ -4,38 +4,11 @@ import StepTwo from './stepTwo'
 import { dataFour, dataOne, dataThree, dataTwo } from './data'
 import StepThree from './StepThree'
 import StepFour from './StepFour'
+import { StateType } from './types'
 
-export type PriceType = {
-  year: number
-  month: number
-  [key: string]: any
-}
-
-type planType = {
-  id: undefined | number
-  title: string
-  price: PriceType
-}
-
-type stateType = {
-  period: string
-  step: number
-  plan: planType
-  addOns: planType[]
-  total: number
-  previousStep: number
-  maxStep: number
-  info: {
-    name: string
-    email: string
-    phone: string
-    [key: string]: any
-  }
-}
-
-export const state: stateType = {
+export const state: StateType = {
   period: 'month',
-  step: 0,
+  step: 2,
   maxStep: 3,
   plan: {
     id: undefined,
@@ -44,7 +17,6 @@ export const state: stateType = {
   },
   addOns: [],
   total: 0,
-  previousStep: 0,
   info: {
     name: '',
     email: '',

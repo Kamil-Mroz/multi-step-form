@@ -1,16 +1,7 @@
 import Form from './Form'
-import { PriceType, changeStep, state } from './main'
+import { changeStep, state } from './main'
+import { PlanType, StepFourType } from './types'
 
-type AddonType = {
-  price: PriceType
-  title: string
-}
-
-type StepFourType = {
-  heading: string
-  text: string
-  id: number
-}
 class StepFour extends Form {
   formField: HTMLFieldSetElement
   constructor({ heading, text, id }: StepFourType) {
@@ -40,16 +31,12 @@ class StepFour extends Form {
   createTotal() {
     const titleEl = this.createElement({
       element: 'p',
-      content: `Total (per ${state.period})`,
+      content: `Total (per ${this.statePeriod})`,
     })
-
-    const total =
-      state.plan.price[state.period] +
-      state.addOns.reduce((acc, curr) => (acc += curr.price[state.period]), 0)
 
     const totalPrice = this.createElement({
       element: 'p',
-      content: `$${total}${this.period()}`,
+      content: `$${this.stateTotal}${this.periodString()}`,
       classTag: ['price', 'price--accent', 'price--xl'],
     })
 
@@ -76,7 +63,7 @@ class StepFour extends Form {
   createPlan() {
     const title = this.createElement({
       element: 'h2',
-      content: `${state.plan.title}(${state.period})`,
+      content: `${this.statePlan.title}(${this.statePeriod})`,
       classTag: 'title',
     })
 
@@ -87,7 +74,7 @@ class StepFour extends Form {
       type: 'button',
     }) as HTMLButtonElement
     changeBtn.addEventListener('click', () => {
-      state.step = 1
+      this.stateStep = 1
       changeStep()
     })
     const descriptionContainer = this.createElement({
@@ -95,7 +82,9 @@ class StepFour extends Form {
     })
     const price = this.createElement({
       element: 'p',
-      content: `$${state.plan.price[state.period]}${this.period()}`,
+      content: `$${
+        this.statePlan.price[this.statePeriod]
+      }${this.periodString()}`,
     })
 
     const planContainer = this.createElement({
@@ -105,12 +94,12 @@ class StepFour extends Form {
     return planContainer
   }
 
-  createAddon({ title, price }: AddonType) {
+  createAddon({ title, price }: PlanType) {
     const titleEl = this.createElement({ element: 'p', content: title })
 
     const priceEl = this.createElement({
       element: 'p',
-      content: `+$${price[state.period]}${this.period()}}`,
+      content: `+$${price[this.statePeriod]}${this.periodString()}}`,
       classTag: ['price', 'price--sm'],
     })
 

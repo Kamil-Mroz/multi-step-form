@@ -1,12 +1,5 @@
 import { changeStep, state } from './main'
-
-type CreateElementType = {
-  element?: string
-  children?: Node[] | Node
-  classTag?: string[] | string
-  content?: string
-  type?: string
-}
+import { CreateElementType } from './types'
 
 class Form {
   heading: string
@@ -18,6 +11,50 @@ class Form {
     this.parentElement = document.querySelector('.form') as HTMLFormElement
     this.parentElement.addEventListener('submit', this.onSubmit)
   }
+  get statePeriod() {
+    return state.period
+  }
+  set statePeriod(period) {
+    state.period = period
+  }
+
+  get stateStep() {
+    return state.step
+  }
+
+  set stateStep(step: number) {
+    state.step = step
+  }
+  get stateMaxStep() {
+    return state.maxStep
+  }
+
+  get statePlan() {
+    return state.plan
+  }
+  set statePlan(plan) {
+    state.plan = plan
+  }
+  get stateAddOns() {
+    return state.addOns
+  }
+  set stateAddOns(addOns) {
+    state.addOns = addOns
+  }
+
+  get stateTotal() {
+    const total =
+      state.plan.price[this.statePeriod] +
+      state.addOns.reduce((acc, cur) => (acc += cur.price[this.statePeriod]), 0)
+    return total
+  }
+  get stateInfo() {
+    return state.info
+  }
+  set stateInfo(info) {
+    state.info = info
+  }
+
   onSubmit(e: SubmitEvent) {
     e.preventDefault()
     if (e.target instanceof HTMLFormElement) {
@@ -68,14 +105,14 @@ class Form {
       classTag: ['btn', 'btn--confirm'],
     }) as HTMLButtonElement
 
-    if (state.step === 0) {
+    if (this.stateStep === 0) {
       btnBack.style.display = 'none'
     }
-    if (state.step >= state.maxStep) {
+    if (this.stateStep >= this.stateMaxStep) {
       btnNext.style.display = 'none'
       btnConfirm.style.display = 'block'
     }
-    if (state.step < state.maxStep) {
+    if (this.stateStep < this.stateMaxStep) {
       btnConfirm.style.display = 'none'
     }
 
@@ -85,8 +122,8 @@ class Form {
 
         const value = btn.classList.contains('btn--back') ? -1 : 1
 
-        if (state.step > -1 && state.step <= state.maxStep) {
-          state.step += value
+        if (this.stateStep > -1 && this.stateStep <= this.stateMaxStep) {
+          this.stateStep += value
           buttons.innerHTML = ''
           changeStep()
         }
@@ -128,8 +165,8 @@ class Form {
     if (type) createdElement.type = type
     return createdElement
   }
-  period() {
-    return state.period === 'month' ? '/mo' : '/yr'
+  periodString() {
+    return this.statePeriod === 'month' ? '/mo' : '/yr'
   }
 }
 export default Form

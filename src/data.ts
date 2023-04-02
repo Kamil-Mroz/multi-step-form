@@ -30,7 +30,7 @@ export const dataTwo = {
   offer: '2 months free',
   plans: [
     {
-      planId: 1,
+      id: 1,
       title: 'Arcade',
       price: {
         month: 9,
@@ -38,7 +38,7 @@ export const dataTwo = {
       },
     },
     {
-      planId: 2,
+      id: 2,
       title: 'Advanced',
       price: {
         month: 12,
@@ -46,7 +46,7 @@ export const dataTwo = {
       },
     },
     {
-      planId: 3,
+      id: 3,
       title: 'Pro',
       price: {
         month: 15,
@@ -62,7 +62,7 @@ export const dataThree = {
   text: 'Add-ons help enhance your gaming experience',
   plans: [
     {
-      planId: 1,
+      id: 1,
       title: 'Online service',
       description: 'Access to multiplayer games',
       price: {
@@ -71,7 +71,7 @@ export const dataThree = {
       },
     },
     {
-      planId: 2,
+      id: 2,
       title: 'Larger storage',
       description: 'Extra 1TB of cloud save',
       price: {
@@ -80,7 +80,7 @@ export const dataThree = {
       },
     },
     {
-      planId: 3,
+      id: 3,
       title: 'Customizable profile',
       description: 'Custom theme on your profile',
       price: {
