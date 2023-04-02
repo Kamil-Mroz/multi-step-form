@@ -42,9 +42,9 @@ export type InputType = {
   label: string
 }
 export type PatterType = {
-  name: string
-  email: string
-  phone: string
+  name: RegExp
+  email: RegExp
+  phone: RegExp
   [key: string]: any
 }
 export type AddonType = {

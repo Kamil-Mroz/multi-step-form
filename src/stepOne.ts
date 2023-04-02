@@ -16,9 +16,9 @@ class StepOne extends Form {
     }) as HTMLFieldSetElement
 
     this.pattern = {
-      name: `${/^([a-zA-Z]+ )+[A-Z-a-z]+$/}`,
-      email: `${/^\S+@\S+\.\S+$/}`,
-      phone: `${/^\+\d{1}\s\d{3}\s\d{3}\s\d{3}$/}`,
+      name: /^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/,
+      email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      phone: /^\+\d{1,3}\s\d{3}\s\d{3}\s\d{3}$/,
     }
     this.handleError = this.handleError.bind(this)
     this.setCurrentStep(id)
@@ -53,8 +53,8 @@ class StepOne extends Form {
       type: type,
     }) as HTMLInputElement
     inputEl.placeholder = placeholder
-    inputEl.pattern = this.pattern[name]
     inputEl.id = name
+    inputEl.required = true
     inputEl.value = this.stateInfo[name]
     inputEl.addEventListener('change', (e) => {
       if (e.target instanceof HTMLInputElement)
@@ -66,15 +66,26 @@ class StepOne extends Form {
       content: 'This field is required',
       classTag: 'error',
     })
+    const warningEl = this.createElement({
+      element: 'p',
+      content: `Enter a valid ${name}`,
+      classTag: 'error',
+    })
     errorEl.dataset.error = name
+    warningEl.dataset.warning = name
 
     const inputGroup = this.createElement({ classTag: 'input-group' })
 
-    inputGroup.append(...[labelEl, errorEl, inputEl])
+    inputGroup.append(...[labelEl, errorEl, warningEl, inputEl])
     return inputGroup
   }
   handleError() {
     let errors: { [key: string]: any } = {
+      name: false,
+      email: false,
+      phone: false,
+    }
+    let warnings: { [key: string]: any } = {
       name: false,
       email: false,
       phone: false,
@@ -86,6 +97,16 @@ class StepOne extends Form {
           `[data-error=${key}]`
         ) as HTMLParagraphElement
         errorEl?.classList.add('active')
+      } else if (!this.pattern[key].test(value)) {
+        document
+          .querySelector(`[data-error=${key}]`)
+          ?.classList.remove('active')
+
+        warnings[key] = true
+        const warningEl = document.querySelector(
+          `[data-warning=${key}]`
+        ) as HTMLParagraphElement
+        warningEl?.classList.add('active')
       }
     }
     for (const [key, value] of Object.entries(errors)) {
@@ -93,8 +114,19 @@ class StepOne extends Form {
         document
           .querySelector(`[data-error=${key}]`)
           ?.classList.remove('active')
+      if (!warnings[key]) {
+        document
+          .querySelector(`[data-warning=${key}]`)
+          ?.classList.remove('active')
+        console.log('warning', key)
+      }
     }
-    if (Object.values(errors).some((err) => err === true)) return true
+
+    if (
+      Object.values(errors).some((err) => err === true) ||
+      Object.values(warnings).some((err) => err === true)
+    )
+      return true
     else {
       return false
     }
