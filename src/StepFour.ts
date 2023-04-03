@@ -99,7 +99,7 @@ class StepFour extends Form {
 
     const priceEl = this.createElement({
       element: 'p',
-      content: `+$${price[this.statePeriod]}${this.periodString()}}`,
+      content: `+$${price[this.statePeriod]}${this.periodString()}`,
       classTag: ['price', 'price--sm'],
     })
 

@@ -49,6 +49,12 @@
 
   --rounded-regular: 0.5rem;
   --rounded-medium: 1rem;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1.25rem;
+  --fs-lg: 2rem;
+  --fs-xl: 3.5rem;
 }
 
 *,
@@ -123,6 +129,8 @@ p {
 
 header {
   display: grid;
+  position: relative;
+  isolation: isolate;
 }
 
 .bg-image,
@@ -169,7 +177,7 @@ header {
 .step-id {
   letter-spacing: revert;
   font-weight: 400;
-  font-size: 0.875rem;
+  font-size: var(--fs-sm);
   color: var(--neutral-100);
 }
 
@@ -190,7 +198,8 @@ main {
 }
 
 .heading {
-  font-size: 3.5rem;
+  line-height: 1.2;
+  font-size: var(--fs-xl);
   color: var(--primary-100);
 }
 .form__text {
@@ -229,7 +238,7 @@ input::placeholder {
 .label {
   display: block;
   margin-bottom: 0.3rem;
-  font-size: 0.9rem;
+  font-size: var(--fs-sm);
   font-weight: 700;
 
   transition: color 0.3s cubic-bezier(0.25, 0.01, 0.25, 1) 0s;
@@ -280,7 +289,7 @@ input::placeholder {
 
 .billing__plan {
   display: grid;
-  grid-template-columns: repeat(auto-fit, min(10rem, 100%));
+  grid-template-columns: repeat(auto-fit, min(9.5rem, 100%));
   justify-content: space-between;
 }
 .billing__card {
@@ -296,7 +305,7 @@ input::placeholder {
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: var(--fs-md);
   color: var(--primary-100);
   font-weight: var(--fw-bold);
 }
@@ -307,7 +316,7 @@ input::placeholder {
   fonts-size: 0.875rem;
 }
 .price--xl {
-  font-size: 1.25rem;
+  font-size: var(--fs-md);
   font-weight: var(--fw-bold);
 }
 
@@ -436,7 +445,7 @@ input::placeholder {
 }
 
 .attribution {
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   text-align: center;
 }
 
@@ -512,6 +521,52 @@ input[type='checkbox'] {
   aspect-ratio: 1;
 }
 .thank-you .heading {
-  font-size: 2rem;
+  font-size: var(--fs-lg);
   margin: 1em 0 0.5em;
+}
+
+@media (max-width: 900px) {
+  :root {
+    font-size: 0.875rem;
+    --fs-sm: 0.75rem;
+    --fs-md: 1rem;
+    --fs-lg: 2rem;
+    --fs-xl: 3rem;
+  }
+  #app {
+    padding-inline: revert;
+  }
+  header {
+    align-items: center;
+  }
+  .steps-nav {
+    align-self: stretch;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 0.875rem;
+    --fs-sm: 0.75rem;
+    --fs-md: 1rem;
+    --fs-lg: 1.75rem;
+    --fs-xl: 2.5rem;
+  }
+
+  .billing__plan {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .billing__card {
+    flex-direction: row;
+  }
+  .form-field {
+    gap: 1rem;
+  }
+  .add-on {
+    padding: 0.25em 1em;
+  }
+  .form-card {
+    padding: 0.5rem;
+  }
 }

@@ -8,7 +8,7 @@ import { StateType } from './types'
 
 export const state: StateType = {
   period: 'month',
-  step: 0,
+  step: 3,
   maxStep: 3,
   plan: {
     id: undefined,
