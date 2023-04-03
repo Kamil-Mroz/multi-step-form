@@ -129,8 +129,6 @@ p {
 
 header {
   display: grid;
-  position: relative;
-  isolation: isolate;
 }
 
 .bg-image,
@@ -536,6 +534,9 @@ input[type='checkbox'] {
   #app {
     padding-inline: revert;
   }
+  .form-card {
+    border-radius: 0;
+  }
   header {
     align-items: center;
   }
@@ -551,6 +552,9 @@ input[type='checkbox'] {
     --fs-md: 1rem;
     --fs-lg: 1.75rem;
     --fs-xl: 2.5rem;
+  }
+  main {
+    padding: 1rem;
   }
 
   .billing__plan {
@@ -568,5 +572,35 @@ input[type='checkbox'] {
   }
   .form-card {
     padding: 0.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-card {
+    flex-direction: column;
+    padding: 0;
+  }
+  header {
+    justify-items: center;
+  }
+  .steps-nav {
+    padding: 0;
+    display: grid;
+    place-items: center;
+  }
+  .steps-nav__list {
+    flex-direction: row;
+  }
+  .steps-nav__text {
+    display: none;
+  }
+  .center-element {
+    align-items: stretch;
+  }
+  .billing__card-details {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 }
