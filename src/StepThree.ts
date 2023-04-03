@@ -80,6 +80,7 @@ class StepThree extends Form {
     })
 
     const addOnContainerEl = this.createElement({
+      element: 'label',
       classTag: ['row', 'add-on'],
       children: [inputEl, descriptionEl, priceEl],
     })

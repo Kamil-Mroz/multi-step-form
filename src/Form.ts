@@ -10,6 +10,7 @@ class Form {
     this.text = text
     this.parentElement = document.querySelector('.form') as HTMLFormElement
     this.parentElement.addEventListener('submit', this.onSubmit)
+    this.parentElement.addEventListener('keydown', this.onKeydown)
   }
   get statePeriod() {
     return state.period
@@ -55,12 +56,17 @@ class Form {
     state.info = info
   }
 
-  onSubmit(e: SubmitEvent) {
+  onSubmit(e: Event) {
     e.preventDefault()
     if (e.target instanceof HTMLFormElement) {
       e.target.style.display = 'none'
       const thankYopPage = document.querySelector('.thank-you') as HTMLElement
-      thankYopPage && (thankYopPage.style.display = 'flex')
+      if (thankYopPage) thankYopPage.style.display = 'flex'
+    }
+  }
+  onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
     }
   }
   renderHeading(

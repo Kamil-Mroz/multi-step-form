@@ -36,7 +36,6 @@ class StepTwo extends Form {
     const plansContainer = this.createElement({ classTag: 'billing__plan' })
 
     this.plans.forEach((plan) => {
-      console.log(plan)
       const planEl = this.createPlans(plan)
       planEl.addEventListener('click', () => {
         this.statePlan = plan
@@ -140,7 +139,6 @@ class StepTwo extends Form {
   }
 
   handleError() {
-    console.log(this.statePlan)
     if (this.statePlan.id) return false
     return true
   }

@@ -118,7 +118,6 @@ class StepOne extends Form {
         document
           .querySelector(`[data-warning=${key}]`)
           ?.classList.remove('active')
-        console.log('warning', key)
       }
     }
 
