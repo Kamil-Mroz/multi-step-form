@@ -35,6 +35,7 @@
   --primary-200: hsl(243, 100%, 62%);
   --primary-300: hsl(228, 100%, 84%);
   --primary-400: hsl(206, 94%, 87%);
+  --primary-active: hsla(243, 100%, 62%, 0.12);
   --error-100: hsl(354, 84%, 57%);
 
   --neutral-100: hsl(231, 11%, 63%);
@@ -42,7 +43,6 @@
   --neutral-300: hsl(217, 100%, 97%);
   --neutral-400: hsl(231, 100%, 99%);
   --neutral-500: hsl(0, 0%, 100%);
-
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-bold: 700;
@@ -439,7 +439,7 @@ input::placeholder {
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
 .billing__card.active {
-  background-color: var(--primary-300);
+  background-color: var(--primary-active);
 }
 
 .attribution {
@@ -456,8 +456,6 @@ input::placeholder {
 }
 
 .add-on {
-  --color: 243, 100%, 62%;
-  --alpha: 0.05;
   align-items: center;
   gap: 2rem;
   padding: 1em 2em;
@@ -468,10 +466,10 @@ input::placeholder {
 .add-on:hover,
 .add-on:focus-visible,
 .add-on:has(input[type='checkbox']:checked) {
-  border: 1px solid hsl(var(--color));
+  border: 1px solid var(--primary-100);
 }
 .add-on:has(input[type='checkbox']:checked) {
-  background-color: hsl(var(--color), var(--alpha));
+  background-color: var(--primary-active);
 }
 
 .add-ons__text {
@@ -483,11 +481,11 @@ input::placeholder {
 }
 
 input[type='checkbox'] {
-  accent-color: hsl(var(--color));
+  accent-color: var(--primary-200);
 }
 
 .summary {
-  background-color: var(--primary-300);
+  background-color: var(--primary-active);
   padding: 1rem;
   border-radius: 0.5rem;
   gap: 1rem;
