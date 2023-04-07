@@ -1,4 +1,8 @@
-export type CreateElementType = {
+interface KeyString {
+  [key: string]: any
+}
+
+export interface CreateElementType {
   element?: string
   children?: Node[] | Node
   classTag?: string[] | string
@@ -6,24 +10,21 @@ export type CreateElementType = {
   type?: string
 }
 
-export type PriceType = {
+export interface PriceType extends KeyString {
   year: number
   month: number
-  [key: string]: any
 }
 
-export type PlanType = {
+export interface PlanType extends KeyString {
   id: undefined | number
   title: string
   price: PriceType
-  [key: string]: any
 }
 
-type InfoType = {
+interface InfoType extends KeyString {
   name: string
   email: string
   phone: string
-  [key: string]: any
 }
 
 export type StateType = {
@@ -41,46 +42,35 @@ export type InputType = {
   placeholder: string
   label: string
 }
-export type PatterType = {
+export interface PatterType extends KeyString {
   name: RegExp
   email: RegExp
   phone: RegExp
-  [key: string]: any
 }
-export type AddonType = {
+
+export interface PlansType {
   title: string
   price: PriceType
+}
+
+export interface AddonType extends PlansType {
   description: string
 }
 
-export type PlansType = {
-  title: string
-  price: PriceType
-}
-
-export type StepOneType = {
+export interface BaseClass {
   heading: string
   text: string
   id: number
+}
+
+export interface StepOneType extends BaseClass {
   inputs: InputType[]
 }
-export type StepTwoType = {
-  heading: string
-  text: string
+export interface StepTwoType extends BaseClass {
   plans: PlanType[]
   offer: string
-  id: number
 }
 
-export type StepThreeType = {
-  heading: string
-  text: string
+export interface StepThreeType extends BaseClass {
   plans: AddonType[]
-  id: number
-}
-
-export type StepFourType = {
-  heading: string
-  text: string
-  id: number
 }

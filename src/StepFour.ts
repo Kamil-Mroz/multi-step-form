@@ -1,10 +1,10 @@
 import Form from './Form'
 import { changeStep, state } from './main'
-import { PlanType, StepFourType } from './types'
+import { BaseClass, PlanType } from './types'
 
 class StepFour extends Form {
   formField: HTMLFieldSetElement
-  constructor({ heading, text, id }: StepFourType) {
+  constructor({ heading, text, id }: BaseClass) {
     super(heading, text)
     this.formField = this.createElement({
       element: 'fieldset',
